@@ -61,13 +61,14 @@ All backend content is stored here.
   Http
 
   - Request
+  - Response
   - Session
 
   Utilities
 
   - Browser
   - DB
-  - Helper
+  - Utility
 
 - Root
 
