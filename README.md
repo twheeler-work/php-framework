@@ -27,6 +27,10 @@ Basic project setup files are stored here.
 
 Store all public accessible content here.
 
+- SCSS
+
+  - All scss styles are compiled on load while in a local environment and saved to the same named css file.
+
 - CSS
 
   - All styles are loaded through core.css
