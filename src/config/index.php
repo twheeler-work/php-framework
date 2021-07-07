@@ -4,13 +4,14 @@
 //* Vendor Library
 ///////////////////////////////
 
-require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 // Declare libraries
 use Utilities\DB;
 use Http\Session;
 use Controllers\Router;
 use Controllers\Link;
+use ScssPhp\ScssPhp\Compiler;
 
 ///////////////////////////////
 //* Project Variables
@@ -44,7 +45,7 @@ define('SCRIPTS', 'src/');
 //* System ------------------------------ //
 
 // Set DB connection info
-define('DBDATA', include('db.php'));
+define('DBDATA', include 'db.php');
 
 // Set Session timeout
 define('TIMEOUT', 1800); // 30 mins 1800
@@ -57,9 +58,9 @@ date_default_timezone_set('America/Chicago');
 
 // Set local Env
 if ($_SERVER["REMOTE_ADDR"] === '127.0.0.1') {
-    define('LOCAL', true);
+  define('LOCAL', true);
 } else {
-    define('LOCAL', false);
+  define('LOCAL', false);
 }
 
 ///////////////////////////////
@@ -67,19 +68,29 @@ if ($_SERVER["REMOTE_ADDR"] === '127.0.0.1') {
 ///////////////////////////////
 
 if (!STAGE) {
-    error_reporting(E_ALL ^ E_WARNING);
+  error_reporting(E_ALL ^ E_WARNING);
 } else {
-    error_reporting(E_ALL);
-    ini_set("display_errors", "On");
+  error_reporting(E_ALL);
+  ini_set("display_errors", "On");
 }
 
 ///////////////////////////////
 //* Initialize Classes
 ///////////////////////////////
 
-$session = new Session;
-$router = new Router;
-$link = new Link;
+$session = new Session();
+$router = new Router();
+$link = new Link();
 
 // Connect DB
-$db = (new DB)->start();
+$db = (new DB())->start();
+
+///////////////////////////////
+//! Compile SCSS LIVE in DEV
+///////////////////////////////
+
+if (LOCAL) {
+  $scssIn = file_get_contents(__DIR__ . '/../../public/scss/index.scss');
+  $cssOut = (new Compiler())->compileString($scssIn)->getCss();
+  file_put_contents(__DIR__ . '/../../public/css/index.css', $cssOut);
+}
