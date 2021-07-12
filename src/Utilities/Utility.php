@@ -56,4 +56,19 @@ class Utility
 
     return $title;
   }
+
+  /** ----------------------------
+   ** Get Timer Result
+   * -----------------------------
+   * Return time with 3 decimals
+   * @return int
+   */
+  public static function timer()
+  {
+    if (PROC_TIMER !== null) {
+      return number_format((float) microtime(true) - PROC_TIMER, 3);
+    } else {
+      return null;
+    }
+  }
 }

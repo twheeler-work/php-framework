@@ -85,6 +85,7 @@ define('SCRIPTS', 'src/');
  * Set system variables here.
  * - DBDATA include database connection information
  * - TIMEOUT set session timeout for protected pages
+ * - PROC_TIMER set process timer to return execution time
  * - Set default timezone for date/time references
  * - LOCAL checks for local ip and sets env
  * - STAGE compares current url host with PROD_URL var to detect stage env
@@ -95,6 +96,9 @@ define('DBDATA', include 'db.php');
 
 // Set Session timeout
 define('TIMEOUT', 1800); // 30 mins 1800
+
+// Start Process Timer
+define('PROC_TIMER', microtime(true));
 
 // Set the default timezone
 date_default_timezone_set('America/Chicago');
